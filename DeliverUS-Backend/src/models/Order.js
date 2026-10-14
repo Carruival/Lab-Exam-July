@@ -41,7 +41,7 @@ const loadModel = (sequelize, DataTypes) => {
     riderComments: {
       type: DataTypes.TEXT,
       allowNull: true
-    }
+    },
     status: {
       type: DataTypes.VIRTUAL,
       get () {
