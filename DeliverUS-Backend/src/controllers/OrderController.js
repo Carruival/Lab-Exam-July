@@ -270,6 +270,7 @@ const OrderController = {
   create,
   update,
   destroy,
+  riderComment,
   confirm,
   send,
   deliver,
