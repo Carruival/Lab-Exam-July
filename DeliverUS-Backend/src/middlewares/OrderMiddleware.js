@@ -58,9 +58,10 @@ const checkOrderCanBeSent = async (req, res, next) => {
     const isShippable = order.startedAt && !order.sentAt
     if (isShippable) {
       return next()
-    } else {
-      return res.status(409).send('The order cannot be sent')
+    } else if (order.sentAt && !order.deliveredAt) {
+      return next()
     }
+    return res.status(409).send('The order cannot be sent')
   } catch (err) {
     return res.status(500).send(err.message)
   }
