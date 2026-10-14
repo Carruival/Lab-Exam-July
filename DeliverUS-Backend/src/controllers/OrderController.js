@@ -130,6 +130,18 @@ const destroy = async function (req, res) {
   res.status(500).send('This function is to be implemented')
 }
 
+const accept = async function (req, res) {
+  try {
+    const order = await Order.findByPk(req.params.orderId)
+    order.sentAt = new Date()
+    order.userId = req.params.userId
+    const updatedOrder = await order.save()
+    res.json(updatedOrder)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+}
+
 const confirm = async function (req, res) {
   try {
     const order = await Order.findByPk(req.params.orderId)
@@ -243,6 +255,7 @@ const analytics = async function (req, res) {
 const OrderController = {
   indexRestaurant,
   indexCustomer,
+  accept,
   create,
   update,
   destroy,

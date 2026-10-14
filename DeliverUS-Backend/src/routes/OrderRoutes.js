@@ -43,6 +43,16 @@ const loadFileRoutes = function (app) {
       checkEntityExists(Order, 'orderId'),
       OrderMiddleware.checkOrderVisible,
       OrderController.show)
+  
+  app.route('/orders/:orderId/accept')
+    .patch(
+      isLoggedIn,
+      hasRole('rider'),
+      checkEntityExists(Order, 'orderId'),
+      OrderMiddleware.checkOrderIsPending,
+      OrderMiddleware.checkOrderCanBeSent,
+      OrderController.accept
+    )
 }
 
 export default loadFileRoutes

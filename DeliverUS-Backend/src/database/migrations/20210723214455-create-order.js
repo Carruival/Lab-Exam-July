@@ -13,6 +13,9 @@ module.exports = {
       sentAt: {
         type: Sequelize.DATE
       },
+      accepted: {
+        type: Sequelize.BOOLEAN
+      },
       deliveredAt: {
         type: Sequelize.DATE
       },
