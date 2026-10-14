@@ -134,7 +134,7 @@ const accept = async function (req, res) {
   try {
     const order = await Order.findByPk(req.params.orderId)
     order.sentAt = new Date()
-    order.userId = req.params.userId
+    order.userId = req.user.id
     const updatedOrder = await order.save()
     res.json(updatedOrder)
   } catch (err) {
