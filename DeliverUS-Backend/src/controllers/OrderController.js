@@ -1,6 +1,6 @@
 import { Order, Product, Restaurant, User, sequelizeSession } from '../models/models.js'
 import moment from 'moment'
-import { Op } from 'sequelize'
+import { Op, literal } from 'sequelize'
 const generateFilterWhereClauses = function (req) {
   const filterWhereClauses = []
   if (req.query.status) {
@@ -145,7 +145,7 @@ const accept = async function (req, res) {
 const riderComment = async function (req, res) {
   try {
     const order = await Order.findByPk(req.params.orderId)
-    order.riderComment = req.params.riderComment
+    order.riderComments = req.body.riderComments
     const updatedOrder = await order.save()
     res.json(updatedOrder)
   } catch (err) {
@@ -184,6 +184,17 @@ const deliver = async function (req, res) {
     const averageServiceTime = await restaurant.getAverageServiceTime()
     await Restaurant.update({ averageServiceMinutes: averageServiceTime }, { where: { id: order.restaurantId } })
     res.json(updatedOrder)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+}
+
+const showRiderOrder = async function (req, res) {
+  try {
+    const orders = await Order.findAll({
+      where: { riderId: req.user.id }
+    })
+    res.json(orders)
   } catch (err) {
     res.status(500).send(err)
   }
@@ -270,6 +281,7 @@ const OrderController = {
   create,
   update,
   destroy,
+  showRiderOrder,
   riderComment,
   confirm,
   send,

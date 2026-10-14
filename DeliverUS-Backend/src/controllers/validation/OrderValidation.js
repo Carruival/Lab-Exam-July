@@ -5,7 +5,7 @@ const create = [
 ]
 
 const update = [
-  check('riderComment').isString().isLength({ min: 1, max: 255 }).trim()
+  check('riderComments').isString().isLength({ max: 500 }).trim()
 ]
 
 export { create, update }

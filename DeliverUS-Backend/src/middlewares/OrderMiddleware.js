@@ -36,7 +36,6 @@ const checkOrderVisible = (req, res, next) => {
   } else {
     return res.status(403).send('Not enough privileges')
   }
-
 }
 
 const checkOrderIsPending = async (req, res, next) => {
@@ -80,4 +79,16 @@ const checkOrderCanBeDelivered = async (req, res, next) => {
   }
 }
 
-export { checkOrderOwnership, checkOrderCustomer, checkOrderVisible, checkOrderIsPending, checkOrderCanBeSent, checkOrderCanBeDelivered, checkRestaurantExists }
+const checkOrderAssignedToRider = async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.orderId)
+    if (order.riderId === req.user.id) {
+      return next()
+    }
+    return res.status(403).send('Not enough privileges. This order is not assigned to you')
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
+}
+
+export { checkOrderAssignedToRider, checkOrderOwnership, checkOrderCustomer, checkOrderVisible, checkOrderIsPending, checkOrderCanBeSent, checkOrderCanBeDelivered, checkRestaurantExists }
