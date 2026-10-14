@@ -142,6 +142,17 @@ const accept = async function (req, res) {
   }
 }
 
+const riderComment = async function (req, res) {
+  try {
+    const order = await Order.findByPk(req.params.orderId)
+    order.riderComment = req.params.riderComment
+    const updatedOrder = await order.save()
+    res.json(updatedOrder)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+}
+
 const confirm = async function (req, res) {
   try {
     const order = await Order.findByPk(req.params.orderId)

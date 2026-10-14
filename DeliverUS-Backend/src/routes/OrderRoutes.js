@@ -49,9 +49,18 @@ const loadFileRoutes = function (app) {
       isLoggedIn,
       hasRole('rider'),
       checkEntityExists(Order, 'orderId'),
-      OrderMiddleware.checkOrderIsPending,
       OrderMiddleware.checkOrderCanBeSent,
       OrderController.accept
+    )
+  app.route('/orders/:orderId/riderComments')
+    .patch(
+      isLoggedIn,
+      hasRole('rider'),
+      checkEntityExists(Order, 'orderId'),
+      OrderMiddleware.checkOrderCanBeSent,
+      OrderValidation.update,
+      handleValidation,
+
     )
 }
 

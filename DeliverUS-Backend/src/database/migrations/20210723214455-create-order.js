@@ -13,8 +13,19 @@ module.exports = {
       sentAt: {
         type: Sequelize.DATE
       },
-      accepted: {
-        type: Sequelize.BOOLEAN
+      riderComments: {
+        allowNull: true,
+        type: Sequelize.TEXT
+      },
+      riderId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        }
       },
       deliveredAt: {
         type: Sequelize.DATE
