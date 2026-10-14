@@ -36,12 +36,12 @@ const loadModel = (sequelize, DataTypes) => {
     restaurantId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     riderId: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      type: DataTypes.INTEGER      
     },
     riderComments: {
-      type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
+      type: DataTypes.TEXT      
     },
     status: {
       type: DataTypes.VIRTUAL,
