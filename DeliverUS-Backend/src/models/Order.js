@@ -34,6 +34,10 @@ const loadModel = (sequelize, DataTypes) => {
     shippingCosts: DataTypes.DOUBLE,
     restaurantId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
+    riderId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     status: {
       type: DataTypes.VIRTUAL,
       get () {
