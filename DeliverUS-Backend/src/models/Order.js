@@ -14,6 +14,7 @@ const loadModel = (sequelize, DataTypes) => {
 
       Order.belongsTo(models.Restaurant, { foreignKey: 'restaurantId', as: 'restaurant' })
       Order.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
+      Order.belongsTo(models.User, { foreignKey: 'riderId', as: 'rider' })
       Order.belongsToMany(models.Product, { as: 'products', through: OrderProducts }, { onDelete: 'cascade' })
     }
 
